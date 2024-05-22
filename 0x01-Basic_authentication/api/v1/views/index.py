@@ -30,6 +30,14 @@ def stats() -> str:
 def raise_unathorized_err() -> None:
     """
     This function stops all requests
-    and returns a 401 error
+    and raises a 401 error
     """
     abort(401)
+
+
+@app_views.route('/forbidden/', strict_slashes=False)
+def raise_forbidden_err() -> None:
+    """
+    This function raises a 403 forbidden error
+    """
+    abort(403)
