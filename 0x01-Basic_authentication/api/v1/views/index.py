@@ -26,7 +26,7 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized')
+@app_views.route('/unauthorized/', strict_slashes=False)
 def raise_unathorized_err() -> None:
     """
     This function stops all requests
