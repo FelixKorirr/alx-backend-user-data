@@ -3,8 +3,8 @@
 Module to manage API authentication
 """
 from flask import request
-from typing import List, TypeVar, Type
-User = TypeVar('User')
+from typing import List, TypeVar
+
 
 class Auth:
     """
@@ -16,9 +16,9 @@ class Auth:
         return False
 
     def authorization_header(self, request=None) -> str:
-        """Returns False"""
-        return False
+        """Returns none"""
+        return None
 
-    def current_user(self, request=None) -> User:
+    def current_user(self, request=None) -> TypeVar('User'):
         """Returns none"""
         return None
