@@ -27,7 +27,7 @@ def stats() -> str:
 
 
 @app_views.route('/unauthorized')
-def raise_unathorized_err():
+def raise_unathorized_err() -> None:
     """
     This function stops all requests
     and returns a 401 error
