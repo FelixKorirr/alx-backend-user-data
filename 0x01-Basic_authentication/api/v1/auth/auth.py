@@ -12,10 +12,10 @@ class Auth:
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Returns False"""
-        if path == None:
+        """Defines routes that don't need authentication"""
+        if path is None:
             return True
-        if excluded_paths == None or len(excluded_paths) == 0:
+        if excluded_paths is None or len(excluded_paths) == 0:
             return True
         for item in excluded_paths:
             if path.rstrip('/') == item.rstrip('/'):
