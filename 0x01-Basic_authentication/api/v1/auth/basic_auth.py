@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Implements basic authentication"""
 from .auth import Auth
+import base64
 
 
 class BasicAuth(Auth):
@@ -17,4 +18,23 @@ class BasicAuth(Auth):
         if authorization_header.startswith(prefix):
             return authorization_header[len(prefix):]
         else:
+            return None
+
+    def decode_base64_authorization_header(
+            self, base64_authorization_header: str) -> str:
+        """Returns the decoded value of a Base64 string"""
+        if base64_authorization_header is None:
+            return None
+        if not isinstance(base64_authorization_header, str):
+            return None
+        try:
+            decoded_value = base64.b64decode(
+                base64_authorization_header).decode('utf-8')
+            encoded_value = base64.b64encode(
+                decoded_value.encode('utf-8')).decode('utf-8')
+            if encoded_value == base64_authorization_header:
+                return decoded_value
+            else:
+                return None
+        except Exception:
             return None
