@@ -12,7 +12,10 @@ class Auth:
     """
 
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
-        """Defines routes require or don't need authentication"""
+        """Defines routes that need authentication.
+        returns False if it exists in excluded paths
+        else it returns True.
+        """
         if path is None:
             return True
         if excluded_paths is None or len(excluded_paths) == 0:
@@ -24,7 +27,14 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """Returns none"""
-        return None
+        if request is None:
+            return None
+
+        auth_header = request.headers.get('Authorization')
+
+        if not auth_header:
+            return None
+        return auth_header
 
     def current_user(self, request=None) -> TypeVar('User'):
         """Returns none"""
