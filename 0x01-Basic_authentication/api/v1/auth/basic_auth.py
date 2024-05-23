@@ -6,7 +6,8 @@ from .auth import Auth
 class BasicAuth(Auth):
     """Represents subclass basic auth"""
 
-    def extract_base64_authorization_header(self, authorization_header: str) -> str:
+    def extract_base64_authorization_header(
+            self, authorization_header: str) -> str:
         """Returns base64 part of Authorization header"""
         if authorization_header is None:
             return None
