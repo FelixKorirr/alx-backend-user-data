@@ -23,6 +23,8 @@ class Auth:
         for item in excluded_paths:
             if path.rstrip('/') == item.rstrip('/'):
                 return False
+            if item.endswith('*') and path.startswith(item[:-1]):
+                return False
         return True
 
     def authorization_header(self, request=None) -> str:
