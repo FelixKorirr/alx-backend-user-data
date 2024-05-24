@@ -2,6 +2,8 @@
 """Implements basic authentication"""
 from .auth import Auth
 import base64
+from models.user import User
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -52,3 +54,31 @@ class BasicAuth(Auth):
             return (None, None)
         else:
             return tuple(decoded_base64_authorization_header.split(':'))
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """Returns the User instance based on his email and password."""
+        if user_email is None or not isinstance(user_email, str):
+            return None
+        if user_pwd is None or not isinstance(user_pwd, str):
+            return None
+        users = User()
+        try:
+            usr = users.search({'email': user_email})
+        except Exception:
+            return None
+        if not users:
+            return None
+
+        if usr[0].is_valid_password(user_pwd):
+            return usr[0]
+        else:
+            return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """Overloads Auth and retrieves the User instance for a request"""
+        auth_header = self.authorization_header(request)
+        b64_auth_token = self.extract_base64_authorization_header(auth_header)
+        auth_token = self.decode_base64_authorization_header(b64_auth_token)
+        email, password = self.extract_user_credentials(auth_token)
+        return self.user_object_from_credentials(email, password)
