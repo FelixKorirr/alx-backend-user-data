@@ -47,5 +47,4 @@ class DB:
             raise InvalidRequestError
         if not user_data:
             raise NoResultFound
-        else:
-            return user_data
+        return user_data
