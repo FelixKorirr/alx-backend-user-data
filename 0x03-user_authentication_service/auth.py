@@ -53,3 +53,12 @@ class Auth:
                 return bcrypt.checkpw(provided_passwd, stored_passwd)
         except (AttributeError, NoResultFound):
             return False
+
+    def create_session(self, email: str) -> str:
+        """Creates session id"""
+        try:
+            usr = self._db.find_user_by(email=email)
+            usr.session_id = _generate_uuid()
+            return usr.session_id
+        except (AttributeError, NoResultFound):
+            return None
