@@ -45,6 +45,7 @@ class DB:
             user_data = self._session.query(User).filter_by(**kwargs).first()
         except AttributeError:
             raise InvalidRequestError
-        if not user_data:
+        if user_data is None:
             raise NoResultFound
-        return user_data
+        else:
+            return user_data
