@@ -35,3 +35,14 @@ class Auth:
             return User()
         else:
             return None
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """Checks if password is hashed"""
+        try:
+            usr = self._db.find_user_by(email=email)
+            if usr:
+                stored_passwd = usr.hashed_password
+                provided_passwd = password.encode('utf-8')
+                return bcrypt.checkpw(provided_passwd, stored_passwd)
+        except (AttributeError, NoResultFound):
+            return False
