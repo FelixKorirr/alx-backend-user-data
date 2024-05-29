@@ -43,9 +43,9 @@ class DB:
         """Finds a user based on the provided arguments"""
         try:
             user_data = self._session.query(User).filter_by(**kwargs).first()
-        except AttributeError:
+        except TypeError:
             raise InvalidRequestError
-        if user_data is None:
+        if not user_data:
             raise NoResultFound
         else:
             return user_data
