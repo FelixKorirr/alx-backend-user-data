@@ -47,8 +47,7 @@ class DB:
             raise InvalidRequestError
         if not user_data:
             raise NoResultFound
-        else:
-            return user_data
+        return user_data
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Updates the users attributes"""
