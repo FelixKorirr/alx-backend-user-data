@@ -52,7 +52,10 @@ class DB:
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Updates the users attributes"""
-        usr = self.find_user_by(id=user_id)
+        try:
+            usr = self.find_user_by(id=user_id)
+        except NoResultFound:
+            raise ValueError()
         for key, value in kwargs.items():
             if hasattr(User, key):
                 setattr(usr, key, value)
