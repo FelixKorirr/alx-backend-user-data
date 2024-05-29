@@ -39,11 +39,11 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs):
+    def find_user_by(self, **kwargs) -> User:
         """Finds a user based on the provided arguments"""
         try:
             user_data = self._session.query(User).filter_by(**kwargs).first()
-        except TypeError:
+        except AttributeError:
             raise InvalidRequestError
         if not user_data:
             raise NoResultFound
