@@ -58,8 +58,8 @@ class Auth:
         """Creates session id"""
         try:
             usr = self._db.find_user_by(email=email)
-        except NoResultFound:
+        except (AttributeError, NoResultFound):
             return None
-        this_session_id = _generate_uuid()
-        self._db.update_user(usr.id, session_id=this_session_id)
-        return this_session_id
+        session_id = _generate_uuid()
+        self._db.update_user(usr.id, session_id=session_id)
+        return session_id
