@@ -16,6 +16,12 @@ def _hash_password(password: str) -> bytes:
     return hashed_password
 
 
+def _generate_uuid() -> str:
+    """Generates a random id"""
+    random_id = str(uuid.uuid4())
+    return random_id
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -47,8 +53,3 @@ class Auth:
                 return bcrypt.checkpw(provided_passwd, stored_passwd)
         except (AttributeError, NoResultFound):
             return False
-
-    def _generate_uuid() -> str:
-        """Generates a random id"""
-        random_id = str(uuid.uuid4())
-        return random_id
