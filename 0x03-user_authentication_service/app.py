@@ -43,6 +43,7 @@ def login():
     else:
         abort(401)
 
+
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """Responds to DELETE /sessions route"""
@@ -54,8 +55,6 @@ def logout():
         return redirect('/')
     else:
         abort(403)
-
-
 
 
 if __name__ == '__main__':
