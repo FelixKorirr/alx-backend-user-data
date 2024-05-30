@@ -47,14 +47,14 @@ def login():
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
 def logout():
     """Responds to DELETE /sessions route"""
-    cookie = request.cookies.get('session_id')
+    user_cookie = request.cookies.get('session_id', None)
 
-    user = AUTH.get_user_from_session_id(cookie)
-    if user:
+    user = AUTH.get_user_from_session_id(user_cookie)
+    if user is None or user_cookie is None:
+        abort(403)
+    else:
         AUTH.destroy_session(user.id)
         return redirect('/')
-    else:
-        abort(403)
 
 
 if __name__ == '__main__':
