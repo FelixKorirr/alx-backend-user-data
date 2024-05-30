@@ -7,7 +7,7 @@ AUTH = Auth()
 
 
 @app.route("/", methods=['GET'], strict_slashes=False)
-def message():
+def message() -> str:
     """Returns JSON payload"""
     return jsonify({
         "message": "Bienvenue"
@@ -15,7 +15,7 @@ def message():
 
 
 @app.route('/users', methods=['POST'], strict_slashes=False)
-def new_user():
+def new_user() -> str:
     """Registers a new user"""
     email = request.form.get('email')
     password = request.form.get('password')
@@ -29,7 +29,7 @@ def new_user():
 
 
 @app.route('/sessions', methods=['POST'], strict_slashes=False)
-def login():
+def login() -> str:
     """Responds to POST request to /sessions endpoint"""
     email = request.form.get('email')
     password = request.form.get('password')
