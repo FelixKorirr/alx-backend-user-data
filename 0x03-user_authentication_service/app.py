@@ -75,7 +75,6 @@ def get_reset_token() -> str:
     if user is None:
         abort(403)
     reset_token = AUTH.get_reset_password_token(email)
-    AUTH._db.update_user(user.id, reset_token=reset_token)
     return jsonify({"email": email, "reset_token": reset_token})
 
 
