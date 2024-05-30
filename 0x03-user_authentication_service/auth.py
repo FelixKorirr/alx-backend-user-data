@@ -93,7 +93,7 @@ class Auth:
         except NoResultFound:
             raise ValueError()
 
-        random_id = str(uuid.uuid4())
+        random_id = _generate_uuid()
         self._db.update_user(user.id, reset_token=random_id)
 
         return random_id
