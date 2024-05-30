@@ -73,9 +73,10 @@ def get_reset_token() -> str:
     """Generates a reset_token if the email is registered"""
     email = request.form.get('email')
     reset_token = AUTH.get_reset_password_token(email)
-    if not reset_token:
+    if reset_token is None:
         abort(403)
-    return jsonify({"email": email, "reset_token": reset_token})
+    else:
+        return jsonify({"email": email, "reset_token": reset_token})
 
 
 if __name__ == '__main__':
