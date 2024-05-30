@@ -71,16 +71,12 @@ def profile() -> str:
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_token() -> str:
     """Generates a reset_token if the email is registered"""
-    user_request = request.form
-    user_email = user_request.get('email')
-    is_registered = AUTH.create_session(user_email)
-
-    if not is_registered:
+    email = request.form.get('email')
+    is_registered = AUTH.create_session(email)
+    if is_registered is None:
         abort(403)
-
-    token = AUTH.get_reset_password_token(user_email)
-    message = {"email": user_email, "reset_token": token}
-    return jsonify(message)
+    reset_token = AUTH.get_reset_password_token(email)
+    return jsonify({"email": email, "reset_token": reset_token})
 
 
 if __name__ == '__main__':
