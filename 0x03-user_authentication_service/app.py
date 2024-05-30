@@ -72,10 +72,9 @@ def profile() -> str:
 def get_reset_token() -> str:
     """Generates a reset_token if the email is registered"""
     email = request.form.get('email')
-    is_registered = AUTH.create_session(email)
-    if is_registered is None:
-        abort(403)
     reset_token = AUTH.get_reset_password_token(email)
+    if not reset_token:
+        abort(403)
     return jsonify({"email": email, "reset_token": reset_token})
 
 
