@@ -70,6 +70,7 @@ def profile() -> str:
 
 @app.route("/reset_password", methods=["POST"], strict_slashes=False)
 def get_reset_token() -> str:
+    """Generates a reset_token if the email is registered"""
     email = request.form.get('email')
     user = AUTH._db.find_user_by(email=email)
     if user is None:
