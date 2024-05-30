@@ -95,4 +95,5 @@ class Auth:
 
         random_id = _generate_uuid()
         self._db.update_user(user.id, reset_token=random_id)
+
         return random_id
